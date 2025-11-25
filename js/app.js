@@ -1,3 +1,9 @@
+/* ============================================
+   TODO LIST - JAVASCRIPT
+   Fonctionnalités et interactions dynamiques
+   Responsable : Léandre
+   ============================================ */
+
 const categoryNameInput = document.getElementById('categoryNameInput');
 const categoryIconInput = document.getElementById('categoryIconInput');
 const iconPickerBtn = document.getElementById('iconPickerBtn');

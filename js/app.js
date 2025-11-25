@@ -71,12 +71,27 @@ function addCategory() {
 function displayCategories() {
   categoryButtons.innerHTML = '';
   categories.forEach((category, index) => {
+    const categoryWrapper = document.createElement('div');
+    categoryWrapper.className = 'category-wrapper';
+
     const button = document.createElement('button');
     button.className = 'category-btn';
     if (selectedCategory === index) button.classList.add('active');
     button.textContent = `${category.icon} ${category.name}`;
     button.addEventListener('click', () => selectCategory(index));
-    categoryButtons.appendChild(button);
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'category-delete-btn';
+    deleteBtn.innerHTML = '&times;';
+    deleteBtn.title = 'Supprimer la catégorie';
+    deleteBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      deleteCategory(index);
+    });
+
+    categoryWrapper.appendChild(button);
+    categoryWrapper.appendChild(deleteBtn);
+    categoryButtons.appendChild(categoryWrapper);
   });
 }
 
@@ -85,6 +100,26 @@ function selectCategory(index) {
   categorySelect.value = String(index);
   displayCategories();
   displayTasks();
+}
+
+function deleteCategory(index) {
+  const category = categories[index];
+  const confirmDelete = confirm(`Voulez-vous vraiment supprimer la catégorie "${category.name}" et toutes ses tâches ?`);
+
+  if (confirmDelete) {
+    categories.splice(index, 1);
+
+    // Réinitialiser la sélection si la catégorie supprimée était sélectionnée
+    if (selectedCategory === index) {
+      selectedCategory = null;
+    } else if (selectedCategory > index) {
+      selectedCategory--;
+    }
+
+    displayCategories();
+    updateCategorySelect();
+    displayTasks();
+  }
 }
 
 function updateCategorySelect() {
@@ -103,11 +138,11 @@ function addTask() {
     alert('Veuillez sélectionner une catégorie!');
     return;
   }
-  
+
   const taskValue = inputTask.value.trim();
   if (taskValue === '') return;
-  
-  categories[selectedCategory].tasks.push(taskValue);
+
+  categories[selectedCategory].tasks.push({ text: taskValue, completed: false });
   inputTask.value = '';
   displayTasks();
 }
@@ -141,16 +176,38 @@ function displayTasks() {
   
   category.tasks.forEach((task, index) => {
     const li = document.createElement('li');
+    if (task.completed) li.classList.add('completed');
+
+    // Checkbox (puce)
+    const checkbox = document.createElement('button');
+    checkbox.className = 'task-checkbox';
+    checkbox.innerHTML = task.completed ? '✓' : '';
+    checkbox.addEventListener('click', () => toggleTask(index));
+
+    // Texte de la tâche
+    const taskContent = document.createElement('div');
+    taskContent.className = 'task-content';
     const span = document.createElement('span');
-    span.textContent = task;
+    span.textContent = task.text;
+    taskContent.appendChild(span);
+
+    // Bouton supprimer
     const btn = document.createElement('button');
     btn.className = 'deleteBtn';
     btn.textContent = 'Supprimer';
     btn.addEventListener('click', () => deleteTask(index));
-    li.appendChild(span);
+
+    li.appendChild(checkbox);
+    li.appendChild(taskContent);
     li.appendChild(btn);
     taskList.appendChild(li);
   });
+}
+
+function toggleTask(index) {
+  if (selectedCategory === null) return;
+  categories[selectedCategory].tasks[index].completed = !categories[selectedCategory].tasks[index].completed;
+  displayTasks();
 }
 
 function deleteTask(index) {

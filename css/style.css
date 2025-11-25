@@ -48,7 +48,7 @@ body {
     font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
     padding: 20px;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 /* ============================================
@@ -368,8 +368,14 @@ h1 {
     min-height: 60px;
 }
 
+.category-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
 .category-btn {
     padding: 10px 20px;
+    padding-right: 30px;
     background: var(--color-white-05);
     color: var(--color-white-90);
     border: 2px solid var(--color-white-10);
@@ -390,6 +396,34 @@ h1 {
     color: white;
     border-color: transparent;
     box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.category-delete-btn {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    background: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.category-delete-btn:hover {
+    background: var(--color-accent-dark);
+    transform: scale(1.15);
+    box-shadow: 0 2px 8px rgba(229, 62, 62, 0.4);
 }
 
 /* === SECTION INPUT TÂCHE === */
@@ -489,6 +523,7 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 12px;
     padding: 16px 20px;
     background: var(--color-white-03);
     border-radius: var(--radius-md);
@@ -505,6 +540,16 @@ h1 {
     transform: translateX(5px);
 }
 
+#taskList li.completed {
+    opacity: 0.6;
+    border-left-color: var(--color-white-30);
+}
+
+#taskList li.completed .task-content span {
+    text-decoration: line-through;
+    color: var(--color-white-50);
+}
+
 @keyframes slideIn {
     from {
         opacity: 0;
@@ -516,8 +561,41 @@ h1 {
     }
 }
 
-#taskList li span {
+/* === CHECKBOX STYLE iOS === */
+.task-checkbox {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--color-white-30);
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: white;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.task-checkbox:hover {
+    border-color: var(--color-gold);
+    background: var(--color-white-05);
+}
+
+#taskList li.completed .task-checkbox {
+    background: var(--color-gold);
+    border-color: var(--color-gold);
+}
+
+.task-content {
     flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+#taskList li span {
     color: var(--color-white-90);
     font-size: 16px;
 }

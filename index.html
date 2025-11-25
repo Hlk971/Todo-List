@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List - Projet d'équipe</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Cercles animés pour le fond dynamique -->
+    <div class="bg-circle-red"></div>
+    <div class="bg-circle-gold"></div>
+    <div class="bg-circle-blue"></div>
+
+    <div id="app">
+        <h1>Ma Todo List</h1>
+
+        <!-- Section pour créer une nouvelle catégorie -->
+        <div class="category-creator">
+            <input type="text" id="categoryNameInput" placeholder="Nom de la catégorie...">
+            <button type="button" id="iconPickerBtn" class="icon-picker-btn" title="Choisir une icône">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 4V20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M5 4H15C16 4 17 5 17 6V10C17 11 16 12 15 12H5" fill="currentColor" opacity="0.3"/>
+                    <path d="M5 4H15C16 4 17 5 17 6V10C17 11 16 12 15 12H5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <input type="hidden" id="categoryIconInput" value="😊">
+            <button id="addCategoryBtn">+ Créer catégorie</button>
+        </div>
+
+        <!-- Sélecteur d'émojis (caché par défaut) -->
+        <div id="emojiPicker" class="emoji-picker" style="display: none;">
+            <div class="emoji-picker-content">
+                <div class="emoji-grid">
+                    <!-- Les émojis seront ajoutés ici par JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Boutons de catégories (générés dynamiquement) -->
+        <div id="categoryButtons" class="category-buttons">
+            <!-- Les boutons de catégories seront ajoutés icsi par JavaScript -->
+        </div>
+
+        <!-- Section pour ajouter une tâche -->
+        <div class="input-section">
+            <div class="input-section-top">
+                <select id="categorySelect">
+                    <option value="">Sélectionnez une catégorie...</option>
+                    <!-- Les options seront ajoutées dynamiquement par JavaScript -->
+                </select>
+                <input type="text" id="taskInput" placeholder="Entrez une nouvelle tâche...">
+            </div>
+            <button id="addBtn">Ajouter</button>
+        </div>
+
+        <!-- Liste des tâches -->
+        <ul id="taskList">
+            <!-- Les tâches seront ajoutées ici dynamiquement par JavaScript -->
+        </ul>
+
+        <!-- Footer -->
+        <div class="footer">
+            <span class="footer-text">Todo List — BeCode 2025</span>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
+

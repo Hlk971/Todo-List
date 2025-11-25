@@ -215,7 +215,6 @@ h1 {
     color: var(--color-white);
     margin: 0 0 32px 0;
     letter-spacing: -0.5px;
-    text-transform: lowercase;
     text-align: center;
 }
 
